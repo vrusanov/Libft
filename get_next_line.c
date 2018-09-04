@@ -11,7 +11,31 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "get_next_line.h"
+
+int				is_line(char *buff[], int fd, char **line)
+{
+	int			i;
+	char		*temp;
+
+	i = 0;
+	while (buff[fd][i] != '\n' && buff[fd][i] != '\0')
+		i++;
+	if (buff[fd][i] == '\n')
+	{
+		*line = ft_strsub(buff[fd], 0, i);
+		temp = ft_strdup(buff[fd] + i + 1);
+		free(buff[fd]);
+		buff[fd] = temp;
+	}
+	else if (buff[fd][i] == '\0')
+	{
+		*line = ft_strdup(buff[fd]);
+		temp = ft_strdup(buff[fd] + i);
+		free(buff[fd]);
+		buff[fd] = temp;
+	}
+	return (1);
+}
 
 int				get_next_line(int fd, char **line)
 {
@@ -38,29 +62,4 @@ int				get_next_line(int fd, char **line)
 	if ((buf[fd] == NULL || buf[fd][0] == '\0') && ret == 0)
 		return (0);
 	return (is_line(buf, fd, line));
-}
-
-int				is_line(char *buff[], int fd, char **line)
-{
-	int			i;
-	char		*temp;
-
-	i = 0;
-	while (buff[fd][i] != '\n' && buff[fd][i] != '\0')
-		i++;
-	if (buff[fd][i] == '\n')
-	{
-		*line = ft_strsub(buff[fd], 0, i);
-		temp = ft_strdup(buff[fd] + i + 1);
-		free(buff[fd]);
-		buff[fd] = temp;
-	}
-	else if (buff[fd][i] == '\0')
-	{
-		*line = ft_strdup(buff[fd]);
-		temp = ft_strdup(buff[fd] + i);
-		free(buff[fd]);
-		buff[fd] = temp;
-	}
-	return (1);
 }

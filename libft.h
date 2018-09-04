@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# define BUFF_SIZE 2096
 
 typedef	struct	s_list
 {
@@ -93,5 +94,7 @@ char			*ft_itoa_base(int value, int base);
 int				get_next_line(int fd, char **line);
 long			ft_atol_base(const char *str, int base);
 int				ft_isspace(int c);
+int				is_line(char *buff[], int fd, char **line);
+int				get_next_line(int fd, char **line);
 
 #endif
